@@ -9,6 +9,8 @@ import store from './store';
 import Home from './components/Home.js';
 import Login from './components/Login.js';
 import Register from './components/Register.js';
+import Instances from './components/Instances.js';
+import RequiresAuth from './components/RequiresAuth.js';
 
 
 ReactDOM.render(
@@ -16,8 +18,11 @@ ReactDOM.render(
   <BrowserRouter>
     <App>
       <Route exact path='/' component={Home} />
-      <Route exact path='/login' component={Login} />
-      <Route exact path='/register' component={Register} />
+      <Route path='/login' component={Login} />
+      <Route path='/register' component={Register} />
+      <RequiresAuth>
+        <Route path="/instances" component={Instances} />
+      </RequiresAuth>
     </App>
   </BrowserRouter>
   </Provider>, document.getElementById('root'));

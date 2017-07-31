@@ -11,16 +11,16 @@ const mapStateToProps = state => ({ ...state });
 const mapDispatchToProps = dispatch => ({
 });
 
-class Dashboard extends Component {
+class Instances extends Component {
 
   render() {
     return(
-      <div className='dash-board'>
-        This is the logged in dashboard
+      <div className='instances'>
+        list all the instances here
         {this.props.children}
       </div>
     );
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Instances));
