@@ -10,9 +10,9 @@ const user = (state=initialState, action) => {
     case "REGISTER_FULFILLED":
       return {
         ...state,
-          errors: initialState.errors,
-          error: initialState.error,
-          userRegistered: true,
+        errors: initialState.errors,
+        error: initialState.error,
+        userRegistered: true,
       };
 
     case "REGISTER_REJECTED":
@@ -25,9 +25,24 @@ const user = (state=initialState, action) => {
     case "UPDATE_FIELD_REGISTER":
       return { ...state, [action.key]: action.value };
 
-    case "APP_LOAD":
-      console.log(action.userData);
+    case "LOAD_USER_DATA_FULFILLED":
+      return {
+        ...state,
+        user: action.payload.data,
+      }
 
+    case "LOAD_USER_DATA_REJECTED":
+      return {
+        ...state,
+        errors: initialState.errors,
+        error: initialState.error,
+      }
+
+    case "UNLOAD_USER_DATA":
+      return {
+        ...state,
+        user: null,
+      }
     default:
       return state;
   }

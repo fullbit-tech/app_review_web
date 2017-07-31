@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import user from "../actions/user";
 import Errors from "./Errors.js";
 import {
@@ -22,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
         console.log(error.message);
       }),
   onUnload: () =>
-    dispatch({ type: REGISTER_PAGE_UNLOADED })
+    dispatch({ type: REGISTER_PAGE_UNLOADED }),
 });
 
 class Register extends React.Component {
@@ -39,21 +40,24 @@ class Register extends React.Component {
   render() {
     const email = this.props.email;
     const password = this.props.password;
-    console.log(this.props);
-    return(
-      <form id="register" method="post" onSubmit={this.submitForm(email, password)}>
-        <Errors error={this.props.error} />
-        <div className={"form-group"}>
-          <input className={"form-control" + (this.props.errors.email ? " has-error" : "")} onChange={this.changeEmail} required placeholder="email" type="email" name="email" id="email" />
-          <Errors errors={this.props.errors.email}/>
-        </div>
-        <div  className={"form-group"}>
-          <input className={"form-control" + (this.props.errors.password ? " has-error" : "")} onChange={this.changePassword} required  placeholder="password" type="password" name="password" id="password" />
-          <Errors errors={this.props.errors.password}/>
-        </div>
-        <div className="form-group"><input className="btn btn-default" type="submit" name="submit" value="Register" id="submit" /></div>
-      </form>
-    );
+    if (this.props.userRegistered) {
+      return <Redirect to="/login" />
+    }else{
+      return(
+        <form id="register" method="post" onSubmit={this.submitForm(email, password)}>
+          <Errors error={this.props.error} />
+          <div className={"form-group"}>
+            <input className={"form-control" + (this.props.errors.email ? " has-error" : "")} onChange={this.changeEmail} required placeholder="email" type="email" name="email" id="email" />
+            <Errors errors={this.props.errors.email}/>
+          </div>
+          <div  className={"form-group"}>
+            <input className={"form-control" + (this.props.errors.password ? " has-error" : "")} onChange={this.changePassword} required  placeholder="password" type="password" name="password" id="password" />
+            <Errors errors={this.props.errors.password}/>
+          </div>
+          <div className="form-group"><input className="btn btn-default" type="submit" name="submit" value="Register" id="submit" /></div>
+        </form>
+      );
+    }
   }
 }
 

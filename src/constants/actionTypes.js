@@ -1,8 +1,12 @@
 export const APP_LOAD = 'APP_LOAD';
 export const REDIRECT = 'REDIRECT';
 export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
 export const UPDATE_FIELD_AUTH = 'UPDATE_FIELD_AUTH';
 export const LOGIN_PAGE_UNLOADED = 'LOGIN_PAGE_UNLOADED';
 export const REGISTER_PAGE_UNLOADED = 'REGISTER_PAGE_UNLOADED';
 export const REGISTER = 'REGISTER';
 export const UPDATE_FIELD_REGISTER = 'UPDATE_FIELD_REGISTER';
+export const LOAD_USER_DATA = 'LOAD_USER_DATA';
+export const UNLOAD_USER_DATA = 'UNLOAD_USER_DATA';

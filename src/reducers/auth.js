@@ -25,6 +25,12 @@ const auth = (state=initialState, action) => {
     case "UPDATE_FIELD_AUTH":
       return { ...state, [action.key]: action.value };
 
+    case "SET_AUTH_TOKEN":
+      return { ...state, accessToken: action.accessToken };
+
+    case "LOGOUT":
+      return { ...state, accessToken: null };
+
     default:
       return state;
   }
