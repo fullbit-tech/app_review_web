@@ -15,7 +15,6 @@ const initialState = {
 const auth = (state=initialState, action) => {
   switch (action.type) {
     case 'LOGIN_FULFILLED':
-      var accessToken = action.payload.data.access_token;
       return {
         ...state,
         accessToken: action.payload.data.accessToken,

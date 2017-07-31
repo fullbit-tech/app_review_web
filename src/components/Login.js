@@ -11,6 +11,7 @@ import {
   LOAD_USER_DATA,
   SET_AUTH_TOKEN,
 } from '../constants/actionTypes';
+import { TOKEN_STORAGE_KEY } from '../constants/common.js';
 
 
 const mapStateToProps = state => ({...state.auth});
@@ -22,10 +23,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
   onSubmit: (email, password) =>
     dispatch({ type: LOGIN, payload: auth.login(email, password) })
-      .then(() => {
-        dispatch({ type: LOAD_USER_DATA, payload: user.getUser() });
-        dispatch({
-          type: SET_AUTH_TOKEN, accessToken: this.props.accessToken });
+      .then((response) => {
+        var accessToken = response.value.data.access_token;
+        localStorage.setItem(TOKEN_STORAGE_KEY, accessToken);
+        dispatch({ type: SET_AUTH_TOKEN, accessToken: accessToken });
+        dispatch({ type: LOAD_USER_DATA, payload: user.getUser(accessToken) });
       })
       .catch(error => {
         console.log(error.message);
