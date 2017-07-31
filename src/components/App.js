@@ -9,11 +9,11 @@ import {
 import user from '../actions/user.js';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Home from "./Home.js";
-import Login from "./Login.js";
-import Register from "./Register.js";
-import Header from "./Header.js";
-import Footer from "./Footer.js";
+import Home from './Home.js';
+import Login from './Login.js';
+import Register from './Register.js';
+import Header from './Header.js';
+import Footer from './Footer.js';
 
 
 const mapStateToProps = state => ({ ...state });

@@ -1,3 +1,9 @@
+import {
+  UPDATE_FIELD_REGISTER,
+  UNLOAD_USER_DATA,
+} from '../constants/actionTypes.js';
+
+
 const initialState = {
   user: null,
   userRegistered: false,
@@ -7,7 +13,7 @@ const initialState = {
 
 const user = (state=initialState, action) => {
   switch (action.type) {
-    case "REGISTER_FULFILLED":
+    case 'REGISTER_FULFILLED':
       return {
         ...state,
         errors: initialState.errors,
@@ -15,30 +21,30 @@ const user = (state=initialState, action) => {
         userRegistered: true,
       };
 
-    case "REGISTER_REJECTED":
+    case 'REGISTER_REJECTED':
       return {
         ...state,
         errors: action.payload.response.data.errors || initialState.errors,
         error: action.payload.response.data.description || initialState.error,
       };
 
-    case "UPDATE_FIELD_REGISTER":
+    case UPDATE_FIELD_REGISTER:
       return { ...state, [action.key]: action.value };
 
-    case "LOAD_USER_DATA_FULFILLED":
+    case 'LOAD_USER_DATA_FULFILLED':
       return {
         ...state,
         user: action.payload.data,
       }
 
-    case "LOAD_USER_DATA_REJECTED":
+    case 'LOAD_USER_DATA_REJECTED':
       return {
         ...state,
         errors: initialState.errors,
         error: initialState.error,
       }
 
-    case "UNLOAD_USER_DATA":
+    case UNLOAD_USER_DATA:
       return {
         ...state,
         user: null,
@@ -46,7 +52,6 @@ const user = (state=initialState, action) => {
     default:
       return state;
   }
-  return state;
 };
 
 export default user;

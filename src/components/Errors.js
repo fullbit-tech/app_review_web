@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 
 class Errors extends React.Component {
@@ -14,13 +14,13 @@ class Errors extends React.Component {
       _error = this.props.error;
     }
     return(
-      <div className="errorBox">
-        <div className="form-error">
+      <div className='errorBox'>
+        <div className='form-error'>
           {_error}
         </div>
-        <div className="field-errors">
+        <div className='field-errors'>
           {_errors.map(function(obj, i){
-             return <div key="i" className="field-error">{obj}</div>
+             return <div key='i' className='field-error'>{obj}</div>
            })}
         </div>
       </div>

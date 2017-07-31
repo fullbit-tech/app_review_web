@@ -10,7 +10,7 @@ const getConfig  = (auth) => {
       },
   };
   if (auth) {
-    config.headers.Authorization = "JWT " + accessToken;
+    config.headers.Authorization = 'JWT ' + accessToken;
   }
   return config;
 };

@@ -6,9 +6,9 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import store from './store';
-import Home from "./components/Home.js";
-import Login from "./components/Login.js";
-import Register from "./components/Register.js";
+import Home from './components/Home.js';
+import Login from './components/Login.js';
+import Register from './components/Register.js';
 
 
 ReactDOM.render(
