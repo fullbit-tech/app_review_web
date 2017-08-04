@@ -6,10 +6,12 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import store from './store';
+import Header from './components/Header.js';
+import Footer from './components/Footer.js';
 import Home from './components/Home.js';
 import Login from './components/Login.js';
 import Register from './components/Register.js';
-import Instances from './components/Instances.js';
+import Instance from './components/Instance.js';
 import RequiresAuth from './components/RequiresAuth.js';
 
 
@@ -17,12 +19,14 @@ ReactDOM.render(
   <Provider store={store}>
   <BrowserRouter>
     <App>
+      <Header />
       <Route exact path='/' component={Home} />
       <Route path='/login' component={Login} />
       <Route path='/register' component={Register} />
       <RequiresAuth>
-        <Route path="/instances" component={Instances} />
+        <Route path="/:owner/:repo/pull/:pullNumber" component={Instance} />
       </RequiresAuth>
+      <Footer />
     </App>
   </BrowserRouter>
   </Provider>, document.getElementById('root'));
