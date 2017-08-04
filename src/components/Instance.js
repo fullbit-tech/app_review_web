@@ -98,7 +98,7 @@ class Instance extends Component {
             Instance Size: {<InstanceSizeSelect
               changeSize={this.changeSize}
               selected={this.props.instance.instance.instance_size}
-              disabled={this.props.instance.instance.instance_state === 'running'}
+              disabled={this.props.instance.instance.instance_id !== undefined}
             />}
             <Errors errors={this.props.instance.errors.instance_size} />
           </div>
@@ -107,7 +107,7 @@ class Instance extends Component {
               changeRecipe={this.changeRecipe}
               recipes={this.props.recipes}
               selected={this.props.instance.instance.recipe_id}
-              disabled={this.props.instance.instance.instance_state === 'running'}
+              disabled={this.props.instance.instance.instance_id !== undefined}
             />}
             <Errors errors={this.props.instance.errors.recipe_id} />
           </div>
