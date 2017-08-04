@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import GithubAuth from './GithubAuth.js';
 
 
 const mapStateToProps = state => ({ ...state });
@@ -11,7 +11,11 @@ class RequiresAuth extends React.Component {
 
   render() {
     if (this.props.auth.accessToken) {
-      return this.props.children;
+      if (this.props.user.user && this.props.user.user.github_verified) {
+        return this.props.children;
+      }else{
+        return <GithubAuth />
+      }
     } else {
       return null;
     }
