@@ -21,9 +21,9 @@ const getInstance = (owner, repo, pull, token) => axios.get(
     API_ROOT + '/pull-request/' + owner + '/' + repo + '/' + pull,
     getConfig(token));
 
-const startInstance = (owner, repo, pull, recipe, token) => axios.post(
+const startInstance = (owner, repo, pull, token, size, recipe) => axios.post(
     API_ROOT + '/pull-request/' + owner + '/' + repo + '/' + pull,
-    {recipe: recipe}, getConfig(token));
+    {recipe_id: recipe, instance_size: size}, getConfig(token));
 
 const stopInstance = (owner, repo, pull, recipe, token) => axios.delete(
     API_ROOT + '/pull-request/' + owner + '/' + repo + '/' + pull,
