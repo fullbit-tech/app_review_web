@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TOKEN_STORAGE_KEY, API_ROOT } from '../constants/common.js';
+import { API_ROOT } from '../constants/common.js';
 
 
 const getConfig  = (token) => {

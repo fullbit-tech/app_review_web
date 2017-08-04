@@ -1,4 +1,3 @@
-import { TOKEN_STORAGE_KEY } from '../constants/common';
 import {
   UPDATE_FIELD_AUTH,
   SET_AUTH_TOKEN,
@@ -41,7 +40,6 @@ const auth = (state=initialState, action) => {
     default:
       return state;
   }
-  return state;
 };
 
 export default auth;
