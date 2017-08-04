@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
@@ -9,6 +9,7 @@ import {
 } from '../constants/actionTypes.js';
 import { TOKEN_STORAGE_KEY } from '../constants/common.js';
 import user from '../actions/user.js';
+import auth from '../actions/auth.js';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import LoadingIcon from './LoadingIcon.js';
@@ -17,23 +18,24 @@ import LoadingIcon from './LoadingIcon.js';
 const mapStateToProps = state => ({ ...state });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: (accessToken) => {
+  setAuth: (accessToken) => {
     dispatch({ type: SET_AUTH_TOKEN, accessToken });
     dispatch({
       type: LOAD_USER_DATA,
       payload: user.getUser(accessToken) }).catch(error => {
-        dispatch({ type: LOGOUT });
+        dispatch({ type: LOGOUT, payload: auth.logout() });
         dispatch({ type: UNLOAD_USER_DATA });
-      });
+      }
+    )
   }
 });
 
-class App extends Component {
+class App extends React.Component {
 
   componentWillMount() {
     var accessToken = localStorage.getItem(TOKEN_STORAGE_KEY);
     if (accessToken) {
-      this.props.onLoad(accessToken);
+      this.props.setAuth(accessToken);
     }
   }
 
