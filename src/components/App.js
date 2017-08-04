@@ -11,8 +11,7 @@ import { TOKEN_STORAGE_KEY } from '../constants/common.js';
 import user from '../actions/user.js';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Header from './Header.js';
-import Footer from './Footer.js';
+import LoadingIcon from './LoadingIcon.js';
 
 
 const mapStateToProps = state => ({ ...state });
@@ -40,12 +39,14 @@ class App extends Component {
 
 
   render() {
+    var app;
+    if (this.props.user.loading) {
+      app = <LoadingIcon />;
+    } else {
+      app = this.props.children;
+    }
     return(
-      <div className='App'>
-        <Header />
-        {this.props.children}
-        <Footer />
-      </div>
+      <div className='App'>{app}</div>
     );
   }
 }
