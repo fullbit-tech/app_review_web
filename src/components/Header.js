@@ -21,11 +21,13 @@ class Header extends React.Component{
     const logo = 'App Review';
     return(
       <header>
-        <h1>{logo}</h1>
-        {this.props.user.user ? <div>Welcome, {this.props.user.user.email}</div> : ''}
-        {this.props.auth.accessToken ? <button onClick={this.props.logout} className='btn btn-default'>Log out</button> : ''}
-        {!this.props.auth.accessToken ? <Link className='btn btn-default' to='/login'>Log in</Link> : ''}
-        {!this.props.auth.accessToken && !this.props.user.userRegistered  ? <Link className='btn btn-default' to='/register'>Register</Link> : ''}
+        <h1 className="logo"><a href="/">{logo}</a></h1>
+        <div className="nav">
+          <div className="welcome">{this.props.user.user ? <div>Welcome, {this.props.user.user.email}</div> : ''}</div>
+          {this.props.auth.accessToken ? <button onClick={this.props.logout} className='btn btn-default'>Log out</button> : ''}
+          {!this.props.auth.accessToken ? <Link className='btn btn-default' to='/login'>Log in</Link> : ''}
+          {!this.props.auth.accessToken && !this.props.user.userRegistered  ? <Link className='btn btn-default' to='/register'>Register</Link> : ''}
+        </div>
       </header>
     );
   }

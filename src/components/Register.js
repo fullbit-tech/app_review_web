@@ -44,18 +44,23 @@ class Register extends React.Component {
       return <Redirect to='/login' />
     }else{
       return(
-        <form id='register' method='post' onSubmit={this.submitForm(email, password)}>
-          <Errors error={this.props.error} />
-          <div className={'form-group'}>
-            <input className={'form-control' + (this.props.errors.email ? ' has-error' : '')} onChange={this.changeEmail} required placeholder='email' type='email' name='email' id='email' />
-            <Errors errors={this.props.errors.email}/>
+        <div className='row'>
+          <div className='col-md-3'>
+            <h3>Register</h3>
+            <form id='register' method='post' onSubmit={this.submitForm(email, password)}>
+              <Errors error={this.props.error} />
+              <div className={'form-group'}>
+                <input className={'form-control' + (this.props.errors.email ? ' has-error' : '')} onChange={this.changeEmail} required placeholder='email' type='email' name='email' id='email' />
+                <Errors errors={this.props.errors.email}/>
+              </div>
+              <div  className={'form-group'}>
+                <input className={'form-control' + (this.props.errors.password ? ' has-error' : '')} onChange={this.changePassword} required  placeholder='password' type='password' name='password' id='password' />
+                <Errors errors={this.props.errors.password}/>
+              </div>
+              <div className='form-group'><input className='btn btn-default' type='submit' name='submit' value='Register' id='submit' /></div>
+            </form>
           </div>
-          <div  className={'form-group'}>
-            <input className={'form-control' + (this.props.errors.password ? ' has-error' : '')} onChange={this.changePassword} required  placeholder='password' type='password' name='password' id='password' />
-            <Errors errors={this.props.errors.password}/>
-          </div>
-          <div className='form-group'><input className='btn btn-default' type='submit' name='submit' value='Register' id='submit' /></div>
-        </form>
+        </div>
       );
     }
   }

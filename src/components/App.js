@@ -43,12 +43,12 @@ class App extends React.Component {
   render() {
     var app;
     if (this.props.user.loading) {
-      app = <LoadingIcon />;
+      app = <LoadingIcon main={true} />;
     } else {
       app = this.props.children;
     }
     return(
-      <div className='App'>{app}</div>
+      <div className='App container'>{app}</div>
     );
   }
 }

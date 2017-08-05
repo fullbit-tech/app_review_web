@@ -12,24 +12,43 @@ const initialState = {
 
 const user = (state=initialState, action) => {
   switch (action.type) {
+    case 'GET_INSTANCE_REJECTED':
+
     case 'GET_INSTANCE_FULFILLED':
-      return Object.assign({}, state, action.payload.data);
+      return Object.assign({}, state, action.payload.data, {loading: false});
+
+    case 'GET_INSTANCE_PENDING':
+      return { ...state, loading: true };
 
     case 'START_INSTANCE_FULFILLED':
-      return Object.assign({}, state, action.payload.data);
+      return Object.assign({}, state, action.payload.data, {loading: false});
+
+    case 'START_INSTANCE_PENDING':
+      return { ...state, loading: true };
 
     case 'START_INSTANCE_REJECTED':
       return {
         ...state,
         errors: action.payload.response.data.errors || initialState.errors,
         error: action.payload.response.data.description || initialState.error,
+        loading: false,
       };
 
+    case 'STOP_INSTANCE_PENDING':
+      return { ...state, loading: true };
+
+    case 'STOP_INSTANCE_REJECTED':
+
     case 'STOP_INSTANCE_FULFILLED':
-      return Object.assign({}, state, action.payload.data);
+      return Object.assign({}, state, action.payload.data, {loading: false});
+
+    case 'TERMINATE_INSTANCE_PENDING':
+      return { ...state, loading: true };
+
+    case 'TERMINATE_INSTANCE_REJECTED':
 
     case 'TERMINATE_INSTANCE_FULFILLED':
-      return Object.assign({}, state, action.payload.data);
+      return Object.assign({}, state, action.payload.data, {loading: false});
 
     case UPDATE_FIELD_INSTANCE:
       return {

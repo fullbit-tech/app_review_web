@@ -14,6 +14,7 @@ import {
 import InstanceSizeSelect from './InstanceSizeSelect.js';
 import InstanceRecipeSelect from './InstanceRecipeSelect.js';
 import Errors from './Errors.js';
+import InstanceForm from './InstanceForm.js';
 
 
 const mapStateToProps = state => ({
@@ -88,62 +89,25 @@ class Instance extends Component {
 
   render() {
     return(
-      <div className='instance'>
-        <Errors errors={this.props.instance.error} />
-        <h3>{this.props.instance.title} ({this.props.instance.state})</h3>
-        <div className='instance-body'>{this.props.instance.body}</div>
-        <div><a target='_blank' href={this.props.instance.html_url}>View On Github</a></div>
-        <div>
-          <div>
-            Instance Size: {<InstanceSizeSelect
-              changeSize={this.changeSize}
-              selected={this.props.instance.instance.instance_size}
-              disabled={this.props.instance.instance.instance_id !== undefined}
-            />}
-            <Errors errors={this.props.instance.errors.instance_size} />
+      <div className='container instance'>
+        <div className='row'><Errors errors={this.props.instance.error} /></div>
+        <div className="row">
+          <div className="col-md-6">
+            <h3>{this.props.instance.title} ({this.props.instance.state})</h3>
+            <div className='instance-body'>{this.props.instance.body}</div>
+            <div><a target='_blank' href={this.props.instance.html_url}>View On Github</a></div>
           </div>
-          <div>
-            Instance Recipe: {<InstanceRecipeSelect
-              changeRecipe={this.changeRecipe}
+          <div className='col-md-6'>
+            <InstanceForm
+              instance={this.props.instance}
               recipes={this.props.recipes}
-              selected={this.props.instance.instance.recipe_id}
-              disabled={this.props.instance.instance.instance_id !== undefined}
-            />}
-            <Errors errors={this.props.instance.errors.recipe_id} />
+              stopInstance={this.stopInstance.bind(this)}
+              startInstance={this.startInstance.bind(this)}
+              terminateInstance={this.terminateInstance.bind(this)}
+              changeSize={this.changeSize}
+              changeRecipe={this.changeRecipe}
+            />
           </div>
-          <div>Instance State: {this.props.instance.instance.instance_state || 'N/A'}</div>
-          {this.props.instance.instance.instance_url ? (
-            <div>
-              Instance URL:
-                <a href={"http://" + this.props.instance.instance.instance_url}
-                   target='_blank'>{this.props.instance.instance.instance_url}</a></div>
-          ) : (
-            <div>Instance URL: N/A</div>
-          )}
-          {this.props.instance.instance.instance_state === 'running' &&
-            <div>
-              <button
-                className='btn btn-warning btn-default'
-                onClick={this.stopInstance.bind(this)}>Stop Instance
-              </button>
-            </div>
-          }
-          {this.props.instance.instance.instance_state !== 'running' &&
-            <div>
-              <button
-                className='btn btn-primary btn-default'
-                onClick={this.startInstance.bind(this)}>Start Instance
-              </button>
-            </div>
-          }
-          {this.props.instance.instance.instance_state &&
-            <div>
-              <button
-                className='btn btn-danger btn-default'
-                onClick={this.terminateInstance.bind(this)}>Terminate Instance
-              </button>
-            </div>
-          }
         </div>
       </div>
     );
