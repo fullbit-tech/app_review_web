@@ -11,8 +11,6 @@ import {
   TERMINATE_INSTANCE,
   UPDATE_FIELD_INSTANCE,
 } from '../constants/actionTypes.js';
-import InstanceSizeSelect from './InstanceSizeSelect.js';
-import InstanceRecipeSelect from './InstanceRecipeSelect.js';
 import Errors from './Errors.js';
 import InstanceForm from './InstanceForm.js';
 
@@ -24,10 +22,19 @@ const mapDispatchToProps = dispatch => ({
   onLoad: (owner, repo, pull, token) => {
     dispatch({
       type: GET_INSTANCE,
-      payload: instance.getInstance(owner, repo, pull, token)});
-    dispatch({
-      type: GET_RECIPES,
-      payload: recipe.getRecipes(token)});
+      payload: instance.getInstance(owner, repo, pull, token)})
+      .then(() => {
+        dispatch({
+          type: GET_RECIPES,
+          payload: recipe.getRecipes(token)});
+        }
+      ).catch(
+        (error) => {
+          if (error.response.status === 404) {
+            window.location.replace('/');
+          }
+        }
+      )
   },
   startInstance: (owner, repo, pull, token,
                   instance_size, recipe_id) => dispatch({
@@ -53,6 +60,7 @@ const mapDispatchToProps = dispatch => ({
   }),
 });
 
+
 class Instance extends Component {
   constructor(props) {
     super(props);
@@ -61,10 +69,10 @@ class Instance extends Component {
   }
 
   requestParams = [
-        this.props.match.params.owner,
-        this.props.match.params.repo,
-        this.props.match.params.pullNumber,
-        this.props.auth.accessToken,
+    this.props.match.params.owner,
+    this.props.match.params.repo,
+    this.props.match.params.pullNumber,
+    this.props.auth.accessToken,
   ];
 
   componentWillMount() {
@@ -74,8 +82,8 @@ class Instance extends Component {
   startInstance() {
     this.props.startInstance(
       ...this.requestParams.concat([
-        this.props.instance.instance.instance_size,
-        this.props.instance.instance.recipe_id,
+      this.props.instance.instance.instance_size,
+      this.props.instance.instance.recipe_id,
     ]));
   }
 
