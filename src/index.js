@@ -12,6 +12,7 @@ import Home from './components/Home.js';
 import Login from './components/Login.js';
 import Register from './components/Register.js';
 import Instance from './components/Instance.js';
+import Recipe from './components/Recipe.js';
 import RequiresAuth from './components/RequiresAuth.js';
 
 
@@ -25,6 +26,8 @@ ReactDOM.render(
       <Route path='/register' component={Register} />
       <RequiresAuth>
         <Route path="/:owner/:repo/pull/:pullNumber" component={Instance} />
+        <Route path="/recipe/:recipeId" component={Recipe} />
+        <Route exact path="/recipe" component={Recipe} />
       </RequiresAuth>
       <Footer />
     </App>

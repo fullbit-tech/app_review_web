@@ -20,5 +20,16 @@ const getRecipes = (token) => axios.get(
 const getRecipe = (recipeId, token) => axios.get(
     API_ROOT + '/recipe/' + recipeId, getConfig(token));
 
+const createRecipe = (token, name, script) => axios.post(
+    API_ROOT + '/recipe/',
+    {name: name, script: script}, getConfig(token));
 
-export default {getRecipes, getRecipe};
+const editRecipe = (recipeId, token, name, script) => axios.put(
+    API_ROOT + '/recipe/' + recipeId,
+    {name: name, script: script}, getConfig(token));
+
+const deleteRecipe = (recipeId, token) => axios.delete(
+    API_ROOT + '/recipe/' + recipeId, getConfig(token));
+
+
+export default {getRecipes, getRecipe, editRecipe, deleteRecipe, createRecipe};

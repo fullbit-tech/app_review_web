@@ -12,7 +12,7 @@ class RequiresAuth extends React.Component {
   render() {
     if (this.props.auth.accessToken) {
       if (this.props.user.user && this.props.user.user.github_verified) {
-        return this.props.children;
+        return <div>{this.props.children}</div>
       }else{
         return <GithubAuth />
       }
