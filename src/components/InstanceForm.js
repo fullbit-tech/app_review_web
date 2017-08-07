@@ -19,7 +19,7 @@ class InstanceForm extends React.Component {
         instance_url = <a href={"http://" + this.props.instance.instance.instance_url}
                           target='_blank'>{this.props.instance.instance.instance_url}</a>
       } else {
-        < div>Instance URL: N/A</div>
+        instance_url = "N/A"
       }
     }
 
