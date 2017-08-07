@@ -25,6 +25,7 @@ class InstanceForm extends React.Component {
 
     return(
       <div>
+        <h3>Instance</h3>
         <div>
           Instance Size: {<InstanceSizeSelect
             changeSize={this.props.changeSize}
