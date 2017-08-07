@@ -6,7 +6,7 @@ class LoadingIcon extends React.Component {
 
   render() {
     var classes = [];
-    if (this.props.size == 'small') {
+    if (this.props.size === 'small') {
       classes.push('app-loading-small');
     } else {
       classes.push('app-loading-large');
