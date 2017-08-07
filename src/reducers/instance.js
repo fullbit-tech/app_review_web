@@ -13,7 +13,6 @@ const initialState = {
 const user = (state=initialState, action) => {
   switch (action.type) {
     case 'GET_INSTANCE_REJECTED':
-
     case 'GET_INSTANCE_FULFILLED':
       return Object.assign({}, state, action.payload.data, {loading: false});
 
@@ -38,7 +37,6 @@ const user = (state=initialState, action) => {
       return { ...state, loading: true };
 
     case 'STOP_INSTANCE_REJECTED':
-
     case 'STOP_INSTANCE_FULFILLED':
       return Object.assign({}, state, action.payload.data, {loading: false});
 
@@ -46,7 +44,6 @@ const user = (state=initialState, action) => {
       return { ...state, loading: true };
 
     case 'TERMINATE_INSTANCE_REJECTED':
-
     case 'TERMINATE_INSTANCE_FULFILLED':
       return Object.assign({}, state, action.payload.data, {loading: false});
 
