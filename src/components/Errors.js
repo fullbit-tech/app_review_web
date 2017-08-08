@@ -20,7 +20,7 @@ class Errors extends React.Component {
         </div>
         <div className='field-errors'>
           {_errors.map(function(obj, i){
-             return <div key='i' className='field-error'>{obj}</div>
+             return <span key='i' className='help-block field-error'>{obj}</span>
            })}
         </div>
       </div>

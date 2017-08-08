@@ -10,9 +10,11 @@ import {
 import { TOKEN_STORAGE_KEY } from '../constants/common.js';
 import user from '../actions/user.js';
 import auth from '../actions/auth.js';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import LoadingIcon from './LoadingIcon.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+window.jQuery = window.$ = require('jquery/dist/jquery.min.js');
+require('bootstrap/dist/js/bootstrap.min.js');
 
 
 const mapStateToProps = state => ({ ...state });
@@ -48,7 +50,7 @@ class App extends React.Component {
       app = this.props.children;
     }
     return(
-      <div className='App container'>{app}</div>
+      <div className='App'>{app}</div>
     );
   }
 }

@@ -1,4 +1,7 @@
-import { UPDATE_FIELD_INSTANCE } from '../constants/actionTypes.js';
+import {
+  UNLOAD_INSTANCE,
+  UPDATE_FIELD_INSTANCE,
+} from '../constants/actionTypes.js';
 
 
 const initialState = {
@@ -10,7 +13,7 @@ const initialState = {
   error: null,
 };
 
-const user = (state=initialState, action) => {
+const instance = (state=initialState, action) => {
   switch (action.type) {
     case 'GET_INSTANCE_REJECTED':
     case 'GET_INSTANCE_FULFILLED':
@@ -23,12 +26,14 @@ const user = (state=initialState, action) => {
       return Object.assign({}, state, action.payload.data, {loading: false});
 
     case 'START_INSTANCE_PENDING':
-      return { ...state, loading: true };
+      return { ...state, loading: true, errors: initialState.errors, error: null };
 
     case 'START_INSTANCE_REJECTED':
       return {
         ...state,
-        errors: action.payload.response.data.errors || initialState.errors,
+        errors: Object.assign({},
+          initialState.errors,
+          action.payload.response.data.errors),
         error: action.payload.response.data.description || initialState.error,
         loading: false,
       };
@@ -56,9 +61,12 @@ const user = (state=initialState, action) => {
         },
       }
 
+    case UNLOAD_INSTANCE:
+      return initialState;
+
     default:
       return state;
   }
 };
 
-export default user;
+export default instance;

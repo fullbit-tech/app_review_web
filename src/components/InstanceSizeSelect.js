@@ -17,7 +17,7 @@ class InstanceSizeSelect extends React.Component {
         <option value={size} key={size}>{size}</option>
       );
     return(
-        <select onChange={this.props.changeSize} value={this.props.selected || ''} disabled={this.props.disabled}>
+        <select className="form-control" onChange={this.props.changeSize} value={this.props.selected || ''} disabled={this.props.disabled}>
           <option value=''>--</option>
           {options}
         </select>);

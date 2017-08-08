@@ -10,6 +10,7 @@ import {
   STOP_INSTANCE,
   TERMINATE_INSTANCE,
   UPDATE_FIELD_INSTANCE,
+  UNLOAD_INSTANCE,
 } from '../constants/actionTypes.js';
 import Errors from './Errors.js';
 import InstanceForm from './InstanceForm.js';
@@ -36,6 +37,9 @@ const mapDispatchToProps = dispatch => ({
         }
       )
   },
+  unloadInstance: () => dispatch({
+    type: UNLOAD_INSTANCE,
+  }),
   startInstance: (owner, repo, pull, token,
                   instance_size, recipe_id) => dispatch({
     type: START_INSTANCE,
@@ -79,7 +83,12 @@ class Instance extends Component {
     this.props.onLoad(...this.requestParams);
   }
 
-  startInstance() {
+  componentWillUnmount() {
+    this.props.unloadInstance();
+  }
+
+  startInstance(ev) {
+    ev.preventDefault();
     this.props.startInstance(
       ...this.requestParams.concat([
       this.props.instance.instance.instance_size,
@@ -87,34 +96,52 @@ class Instance extends Component {
     ]));
   }
 
-  stopInstance() {
+  stopInstance(ev) {
+    ev.preventDefault();
     this.props.stopInstance(...this.requestParams);
   }
 
-  terminateInstance() {
-    this.props.terminateInstance(...this.requestParams);
+  terminateInstance(ev) {
+    ev.preventDefault();
+    if (window.confirm('Terminate instance?') === true) {
+      this.props.terminateInstance(...this.requestParams);
+    }
   }
 
   render() {
     return(
-      <div className='container instance'>
+      <div className='container-fluid instance'>
         <div className='row'><Errors errors={this.props.instance.error} /></div>
         <div className="row">
-          <div className="col-md-6">
-            <h3>{this.props.instance.title} ({this.props.instance.state})</h3>
-            <div className='instance-body'>{this.props.instance.body}</div>
-            <div><a target='_blank' href={this.props.instance.html_url}>View On Github</a></div>
+          <div className="col-md-4">
+            <div className="widget-box">
+              <div className="widget-title">
+                <h3>Pull Request</h3>
+              </div>
+              <div className="widget-content">
+                <h4>{this.props.instance.title}</h4>
+                <p>{this.props.instance.body}</p>
+                <div><a target='_blank' href={this.props.instance.html_url}>View On Github</a></div>
+              </div>
+            </div>
           </div>
-          <div className='col-md-6'>
-            <InstanceForm
-              instance={this.props.instance}
-              recipes={this.props.recipes}
-              stopInstance={this.stopInstance.bind(this)}
-              startInstance={this.startInstance.bind(this)}
-              terminateInstance={this.terminateInstance.bind(this)}
-              changeSize={this.changeSize}
-              changeRecipe={this.changeRecipe}
-            />
+          <div className='col-md-4'>
+            <div className="widget-box">
+              <div className="widget-title">
+                <h3>Instance</h3>
+              </div>
+              <div className="widget-content">
+                <InstanceForm
+                  instance={this.props.instance}
+                  recipes={this.props.recipes}
+                  stopInstance={this.stopInstance.bind(this)}
+                  startInstance={this.startInstance.bind(this)}
+                  terminateInstance={this.terminateInstance.bind(this)}
+                  changeSize={this.changeSize}
+                  changeRecipe={this.changeRecipe}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -4,7 +4,9 @@ import React from 'react';
 class Footer extends React.Component{
     render(){
         return(
-            <footer>&copy; 2017 AppReview.com</footer>
+          <div className="row-fluid">
+            <div id="footer" className="span12"> 2017 &copy; App Sliver </div>
+          </div>
         );
     }
 }
