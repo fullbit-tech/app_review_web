@@ -1,5 +1,6 @@
 import {
   UPDATE_FIELD_RECIPE,
+  UNLOAD_RECIPE,
 } from '../constants/actionTypes.js';
 
 
@@ -17,6 +18,9 @@ const recipe = (state=initialState, action) => {
 
     case UPDATE_FIELD_RECIPE:
       return { ...state, [action.key]: action.value };
+
+    case UNLOAD_RECIPE:
+      return initialState;
 
     default:
       return state;

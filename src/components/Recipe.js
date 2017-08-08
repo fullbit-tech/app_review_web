@@ -4,18 +4,24 @@ import { connect } from 'react-redux';
 import recipe from '../actions/recipe.js';
 import {
   GET_RECIPE,
+  GET_RECIPES,
   CREATE_RECIPE,
   EDIT_RECIPE,
   DELETE_RECIPE,
   UPDATE_FIELD_RECIPE,
+  UNLOAD_RECIPE,
 } from '../constants/actionTypes.js';
 import Errors from './Errors.js';
 
 
 const mapStateToProps = state => ({
-  auth: state.auth, recipe: state.recipe });
+  auth: state.auth, recipes: state.recipes, recipe: state.recipe });
 
 const mapDispatchToProps = dispatch => ({
+  getRecipes: (token) => dispatch({
+      type: GET_RECIPES,
+      payload: recipe.getRecipes(token),
+  }),
   getRecipe: (recipeId, token) => dispatch({
       type: GET_RECIPE,
       payload: recipe.getRecipe(recipeId, token),
@@ -23,6 +29,9 @@ const mapDispatchToProps = dispatch => ({
     if (error.response.status === 404) {
       window.location.replace('/');
     }
+  }),
+  unloadRecipe: () => dispatch({
+    type: UNLOAD_RECIPE,
   }),
   createRecipe: (token, name, script) => dispatch({
     type: CREATE_RECIPE,
@@ -62,6 +71,11 @@ class Recipe extends React.Component {
     if (this.props.match.params.recipeId) {
       this.props.getRecipe(...this.requestParams);
     }
+    this.props.getRecipes(this.props.auth.accessToken);
+  }
+
+  componentWillUnmount() {
+    this.props.unloadRecipe();
   }
 
   editRecipe(ev) {
@@ -86,7 +100,14 @@ class Recipe extends React.Component {
     this.props.deleteRecipe(...this.requestParams);
   }
 
+  newRecipe() {
+    this.props.history.push('/recipe');
+  }
+
   render() {
+    var recipes = this.props.recipes.map(function(recipe, i) {
+      return <div key={i}><a href={"/recipe/" + recipe.id}>{recipe.name}</a></div>;
+    });
     return(
       <div className='container recipe'>
         {this.props.recipe.id &&
@@ -94,6 +115,11 @@ class Recipe extends React.Component {
         }
         <div className='row'><Errors errors={this.props.recipe.error} /></div>
         <div className="row">
+          <div className='col-md-6'>
+            <h3>Recipes</h3>
+            {recipes}
+            <button className='btn btn-default' onClick={this.newRecipe.bind(this)} >New Recipe</button>
+          </div>
           <div className="col-md-6">
             <form id='recipe-form' onSubmit={this.props.recipe.id ? this.editRecipe.bind(this) : this.createRecipe.bind(this)}>
               <Errors error={this.props.recipe.error} />
