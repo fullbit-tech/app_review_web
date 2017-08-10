@@ -14,12 +14,12 @@ class InstanceForm extends React.Component {
       instance_state = <LoadingIcon size='small'/>;
       instance_url = <LoadingIcon size='small'/>;
     } else {
-      instance_state = this.props.instance.instance.instance_state || 'Inactive';
+      instance_state = this.props.instance.instance.instance_state || 'Dormant';
       if (this.props.instance.instance.instance_url) {
         instance_url = <a href={"http://" + this.props.instance.instance.instance_url}
                           target='_blank'>{this.props.instance.instance.instance_url}</a>
       } else {
-        instance_url = "Dormant"
+        instance_url = "Unavailable";
       }
     }
 
