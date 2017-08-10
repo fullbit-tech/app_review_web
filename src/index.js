@@ -41,7 +41,7 @@ ReactDOM.render(
           <Route path="/recipe/:recipeId" component={Recipe} />
           <Route exact path="/recipes" component={Recipe} />
           <Route exact path="/instances" component={Instances} />
-          <Route exact path="/repository" component={Repository} />
+          <Route exact path="/settings/repository" component={Repository} />
         </Dashboard>
         <DashboardFooter />
       </RequiresAuth>

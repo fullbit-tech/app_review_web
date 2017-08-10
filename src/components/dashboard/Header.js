@@ -36,7 +36,13 @@ class Header extends React.Component{
             <ul className="nav navbar-nav">
               <li><Link to="/instances">Instances <span className="sr-only">(current)</span></Link></li>
               <li><Link to="/recipes">Recipes</Link></li>
-              <li><Link to="/settings">Settings</Link></li>
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span className="caret"></span></a>
+                <ul className="dropdown-menu">
+                  <li><Link to="/settings/repository">Repositories</Link></li>
+                  <li><Link to="/accounting">Accounting</Link></li>
+                </ul>
+              </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li className="dropdown">
