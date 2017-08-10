@@ -19,6 +19,8 @@ import Instances from './components/Instances.js';
 import Recipe from './components/Recipe.js';
 import RequiresAuth from './components/RequiresAuth.js';
 import Public from './components/Public.js';
+import Repository from './components/settings/Repository.js';
+import Settings from './components/Settings.js';
 
 
 ReactDOM.render(
@@ -39,6 +41,7 @@ ReactDOM.render(
           <Route path="/recipe/:recipeId" component={Recipe} />
           <Route exact path="/recipes" component={Recipe} />
           <Route exact path="/instances" component={Instances} />
+          <Route exact path="/repository" component={Repository} />
         </Dashboard>
         <DashboardFooter />
       </RequiresAuth>

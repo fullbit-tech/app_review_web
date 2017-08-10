@@ -39,6 +39,14 @@ body{
 .noinput {
   padding-top: 7px;
 }
+.form-error, .red{
+  color: red;
+}
+.repo-unlink{
+  margin-left: 10px; 
+  position: relative;
+  top: 3px;
+}
 .public #footer {
   position: absolute;
   bottom: 0;
