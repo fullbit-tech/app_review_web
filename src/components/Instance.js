@@ -111,7 +111,6 @@ class Instance extends Component {
   render() {
     return(
       <div className='container-fluid instance'>
-        <div className='row'><Errors errors={this.props.instance.error} /></div>
         <div className="row">
           <div className="col-md-4">
             <div className="widget-box">

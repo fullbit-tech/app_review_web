@@ -34,7 +34,7 @@ const instance = (state=initialState, action) => {
         errors: Object.assign({},
           initialState.errors,
           action.payload.response.data.errors),
-        error: action.payload.response.data.description || initialState.error,
+        error: action.payload.response.data.error || initialState.error,
         loading: false,
       };
 

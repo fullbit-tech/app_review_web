@@ -25,6 +25,7 @@ class InstanceForm extends React.Component {
 
     return(
       <form className="form-horizontal">
+        <div className='row red'><Errors error={this.props.instance.error} /></div>
         <div className={'form-group' + (this.props.instance.errors.instance_size.length > 0 ? ' has-error' : '')}>
           <label className="control-label col-sm-2">Size</label>
           <div className="col-sm-10">
