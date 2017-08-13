@@ -23,7 +23,6 @@ const recipe = (state=initialState, action) => {
         errors: { ...initialState.errors },
         error: null,
       }
-      return Object.assign({deleted: false}, state, action.payload.data);
 
     case 'CREATE_RECIPE_FULFILLED':
       return { ...initialState };

@@ -18,7 +18,6 @@ class Header extends React.Component{
 
 
   render(){
-    const logo = 'App Review';
     return(
       <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -37,7 +36,7 @@ class Header extends React.Component{
               <li><Link to="/instances">Instances <span className="sr-only">(current)</span></Link></li>
               <li><Link to="/recipes">Recipes</Link></li>
               <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span className="caret"></span></a>
+                <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span className="caret"></span></a>
                 <ul className="dropdown-menu">
                   <li><Link to="/settings/repository">Repositories</Link></li>
                   <li><Link to="/accounting">Accounting</Link></li>
@@ -46,7 +45,7 @@ class Header extends React.Component{
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome, {this.props.user.user.email} <span className="caret"></span></a>
+                <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome, {this.props.user.user.email} <span className="caret"></span></a>
                 <ul className="dropdown-menu">
                   <li><Link to="/user">Profile</Link></li>
                   <li><Link to="/accounting">Accounting</Link></li>

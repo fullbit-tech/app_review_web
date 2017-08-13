@@ -29,18 +29,18 @@ class Instances extends Component {
   render() {
     var _this = this;
     var instances = this.props.instances.instances.map(function(instance, i) {
-      var pull_requests = instance.pull_requests.map(function(pull_request, i) {
+      var pull_requests = instance.pull_requests.map(function(pull_request, j) {
         var url = _this.getLocalUrl(pull_request);
-        return <tr key={i}>
+        return <tr key={j}>
           <td className="text-center">{pull_request.number}</td>
           <td><a target="_blank" href={pull_request.html_url}>{pull_request.title}</a></td>
           <td className="text-center">{pull_request.state}</td>
-          <td><img width="25" src={pull_request.user.avatar_url} /> {pull_request.user.login}</td>
+          <td><img width="25" alt='avatar' src={pull_request.user.avatar_url} /> {pull_request.user.login}</td>
           <td className="text-center"><Link to={url}><span className="glyphicon glyphicon-cog"></span></Link></td>
         </tr>
       });
       return (
-      <div className='row'>
+      <div key={i} className='row'>
         <div className='col-md-12'>
           <div className="widget-box">
             <div className="widget-title">

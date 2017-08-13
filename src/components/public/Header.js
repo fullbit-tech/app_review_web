@@ -1,6 +1,5 @@
 import React from 'react';
 import auth from '../../actions/auth.js';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { UNLOAD_USER_DATA, LOGOUT } from '../../constants/actionTypes.js';
 

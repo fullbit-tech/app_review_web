@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Redirect, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import recipe from '../actions/recipe.js';
 import {
@@ -97,7 +97,7 @@ class Recipe extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.recipeId &&
-        nextProps.match.params.recipeId != this.props.match.params.recipeId) {
+        nextProps.match.params.recipeId !== this.props.match.params.recipeId) {
       this.props.getRecipe(
         nextProps.match.params.recipeId,
         nextProps.auth.accessToken,

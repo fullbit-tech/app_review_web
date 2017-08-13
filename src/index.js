@@ -20,7 +20,6 @@ import Recipe from './components/Recipe.js';
 import RequiresAuth from './components/RequiresAuth.js';
 import Public from './components/Public.js';
 import Repository from './components/settings/Repository.js';
-import Settings from './components/Settings.js';
 
 
 ReactDOM.render(
