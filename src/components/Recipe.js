@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { DragSource } from 'react-dnd';
 import recipe from '../actions/recipe.js';
 import {
   GET_RECIPE,
@@ -13,12 +14,13 @@ import {
   UNLOAD_RECIPE,
   ADD_NEW_RECIPE_VAR,
   REMOVE_RECIPE_VAR,
+  GET_RECIPE_DROP_INS,
 } from '../constants/actionTypes.js';
 import Errors from './Errors.js';
 
 
 const mapStateToProps = state => ({
-  auth: state.auth, recipes: state.recipes, recipe: state.recipe });
+  recipeDropIns: state.recipeDropIns, auth: state.auth, recipes: state.recipes, recipe: state.recipe });
 
 const mapDispatchToProps = dispatch => ({
   getRecipes: (token) => dispatch({
@@ -32,6 +34,10 @@ const mapDispatchToProps = dispatch => ({
     if (error.response.status === 404) {
       window.location.replace('/recipes');
     }
+  }),
+  getRecipeDropIns: (token) => dispatch({
+      type: GET_RECIPE_DROP_INS,
+      payload: recipe.getRecipeDropIns(token),
   }),
   unloadRecipe: () => dispatch({
     type: UNLOAD_RECIPE,
@@ -93,6 +99,7 @@ class Recipe extends React.Component {
                            this.props.auth.accessToken)
     }
     this.props.getRecipes(this.props.auth.accessToken);
+    this.props.getRecipeDropIns(this.props.auth.accessToken);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -153,6 +160,24 @@ class Recipe extends React.Component {
     this.props.removeVar(index);
   }
 
+  onDrop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    if (ev.target.value.length <= 0) {
+       ev.target.value = data;
+    } else {
+      ev.target.value = ev.target.value + '\n' + data;
+    }
+  }
+
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  drag(script, ev) {
+    ev.dataTransfer.setData("text", script);
+  }
+
   render() {
     var _this = this;
     var variables = [];
@@ -183,6 +208,11 @@ class Recipe extends React.Component {
           <button onClick={_this.removeVar.bind(_this, i)} className="btn btn-danger">Remove</button>
         </div>
         <br /></div>);
+    });
+    var dropIns = this.props.recipeDropIns.map(function(dropIn, i) {
+      return(
+        <button key={i} draggable="true" onDragStart={_this.drag.bind(this, dropIn.script)} className="btn btn-default">{dropIn['name']}</button>
+      );
     });
     return(
       <div className='container-fluid recipe'>
@@ -230,9 +260,14 @@ class Recipe extends React.Component {
                   </div>
                   <div className="form-group"><button onClick={this.addVar.bind(this)} className="btn btn-default">Add New Var</button></div>
                   <br />
+                  <div>
+                    <label htmlFor='recipe_script'>Drop Ins: (drag and drop to script)</label>
+                    <div>{dropIns}</div>
+                  </div>
+                  <br />
                   <div className={'form-group' + (this.props.recipe.errors.script.length > 0 ? ' has-error' : '')}>
                     <label htmlFor='recipe_script'>Script:</label>
-                    <textarea rows='20' className='form-control' onChange={this.changeScript} value={this.props.recipe.script || ''} name='recipe_script' id='recipe_script'/>
+                    <textarea onDrop={this.onDrop} onDragOver={this.props.allowDrop} rows='20' className='form-control' onChange={this.changeScript} value={this.props.recipe.script || ''} name='recipe_script' id='recipe_script'/>
                     <Errors errors={this.props.recipe.errors.script}/>
                   </div>
                   <div className='form-group'>
