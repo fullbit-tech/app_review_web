@@ -22,51 +22,56 @@ class Instances extends Component {
     this.props.getInstances(this.props.auth.accessToken);
   }
 
-  getLocalUrl(instance) {
-    return instance.html_url.replace('https://github.com', '');  // TODO - move this to const
+  getLocalUrl(pull_request) {
+    return pull_request.html_url.replace('https://github.com', '');
   }
 
   render() {
     var _this = this;
     var instances = this.props.instances.instances.map(function(instance, i) {
-      var url = _this.getLocalUrl(instance);
-      return <tr key={i}>
-        <td className="text-center">{instance.number}</td>
-        <td><a target="_blank" href={instance.html_url}>{instance.title}</a></td>
-        <td className="text-center">{instance.state}</td>
-        <td><img width="25" src={instance.user.avatar_url} /> {instance.user.login}</td>
-        <td className="text-center"><Link to={url}><span className="glyphicon glyphicon-cog"></span></Link></td>
-      </tr>
+      var pull_requests = instance.pull_requests.map(function(pull_request, i) {
+        var url = _this.getLocalUrl(pull_request);
+        return <tr key={i}>
+          <td className="text-center">{pull_request.number}</td>
+          <td><a target="_blank" href={pull_request.html_url}>{pull_request.title}</a></td>
+          <td className="text-center">{pull_request.state}</td>
+          <td><img width="25" src={pull_request.user.avatar_url} /> {pull_request.user.login}</td>
+          <td className="text-center"><Link to={url}><span className="glyphicon glyphicon-cog"></span></Link></td>
+        </tr>
+      });
+      return (
+      <div className='row'>
+        <div className='col-md-12'>
+          <div className="widget-box">
+            <div className="widget-title">
+              <h3>{instance.respository_link.owner}/{instance.respository_link.repository}</h3>
+            </div>
+            <div className="todo widget-content nopadding">
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Number</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Created By</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pull_requests}
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     });
     return(
       <div className='container-fluid instances'>
         <h1>Instances</h1>
         <hr/>
-        <div className='row'>
-          <div className='col-md-12'>
-            <div className="widget-box">
-              <div className="widget-title">
-                <h3>Pull Request Instances</h3>
-              </div>
-              <div className="todo widget-content nopadding">
-                <table className="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Number</th>
-                      <th>Title</th>
-                      <th>Status</th>
-                      <th>Created By</th>
-                      <th>&nbsp;</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {instances}
-                  </tbody>
-                </table>
-                </div>
-              </div>
-            </div>
-          </div>
+        {instances}
       </div>
     );
   }
