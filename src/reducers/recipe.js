@@ -17,6 +17,12 @@ const recipe = (state=initialState, action) => {
   switch (action.type) {
     case 'GET_RECIPE_FULFILLED':
     case 'EDIT_RECIPE_FULFILLED':
+      return {
+        ...state,
+        ...action.payload.data,
+        errors: { ...initialState.errors },
+        error: null,
+      }
       return Object.assign({deleted: false}, state, action.payload.data);
 
     case 'CREATE_RECIPE_FULFILLED':

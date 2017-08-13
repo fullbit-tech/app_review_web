@@ -164,16 +164,24 @@ class Recipe extends React.Component {
     });
 
     variables = this.props.recipe.variables.map(function(recipeVar, i) {
-      return(<div key={i}>
-        <label>Name:</label> <input onChange={_this.changeVarName.bind(_this, i)} className='form-control' value={recipeVar.name || ''} type='text' name='recipe_var_name' />
-        {_this.props.recipe.errors.variables[i] &&
-          <Errors errors={_this.props.recipe.errors.variables[i].name}/>
-        }
-        <label>Value:</label> <input onChange={_this.changeVarValue.bind(_this, i)} className='form-control' value={recipeVar.value || ''} type='text' name='recipe_var_value' />
-        <button onClick={_this.removeVar.bind(_this, i)} className="btn btn-danger">Remove</button>
-        {_this.props.recipe.errors.variables[i] &&
-          <Errors errors={_this.props.recipe.errors.variables[i].value}/>
-        }
+      var errors = {};
+      if (_this.props.recipe.errors.variables[i]) {
+        errors = _this.props.recipe.errors.variables[i]
+      }
+      return(<div className="recipe-variables row" key={i}>
+        <div className={"col-md-5" + (errors.name && errors.name.length > 0 ? ' has-error' : '')}>
+          <label>Name:</label>
+          <input onChange={_this.changeVarName.bind(_this, i)} className='form-control' value={recipeVar.name || ''} type='text' />
+          <Errors errors={errors.name}/>
+        </div>
+        <div className={"col-md-5" + (errors.name && errors.name.length > 0 ? ' has-error' : '')}>
+          <label>Value:</label>
+          <input onChange={_this.changeVarValue.bind(_this, i)} className='form-control' value={recipeVar.value || ''} type='text' />
+          <Errors errors={errors.value}/>
+        </div>
+        <div className="col-md-2">
+          <button onClick={_this.removeVar.bind(_this, i)} className="btn btn-danger">Remove</button>
+        </div>
         <br /></div>);
     });
     return(
@@ -185,6 +193,7 @@ class Recipe extends React.Component {
             <div className="widget-box">
               <div className="widget-title">
                 <h3>Your Recipes</h3>
+                <hr />
               </div>
               <div className="widget-content">
                 <div className="todo recipe-list">
@@ -204,20 +213,23 @@ class Recipe extends React.Component {
               ) : (
                 <h3>New Recipe</h3>
               )}
+              <hr/>
               </div>
               <div className="widget-content">
                 <form id='recipe-form' onSubmit={this.props.recipe.id ? this.editRecipe.bind(this) : this.createRecipe.bind(this)}>
-                  <div className={'form-inline form-group' + (this.props.recipe.errors.variables.length > 0 ? ' has-error' : '')}>
-                    <h4>Vars:</h4>
-                    {variables}
-                  </div>
-                  <div className="form-group"><button onClick={this.addVar.bind(this)} className="btn btn-default">Add New Var</button></div>
-                  <br />
                   <div className={'form-group' + (this.props.recipe.errors.name.length > 0 ? ' has-error' : '')}>
                     <label htmlFor='recipe_name'>Name:</label>
                     <input className='form-control' onChange={this.changeName} value={this.props.recipe.name || ''} type='text' name='recipe_name' id='recipe_name' />
                     <Errors errors={this.props.recipe.errors.name}/>
+                    <br />
                   </div>
+                  <div className={'form-group'}>
+                    <label>Recipe Variables:</label>
+                    <br />
+                    {variables}
+                  </div>
+                  <div className="form-group"><button onClick={this.addVar.bind(this)} className="btn btn-default">Add New Var</button></div>
+                  <br />
                   <div className={'form-group' + (this.props.recipe.errors.script.length > 0 ? ' has-error' : '')}>
                     <label htmlFor='recipe_script'>Script:</label>
                     <textarea rows='20' className='form-control' onChange={this.changeScript} value={this.props.recipe.script || ''} name='recipe_script' id='recipe_script'/>

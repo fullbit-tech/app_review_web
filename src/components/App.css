@@ -47,6 +47,9 @@ body{
   position: relative;
   top: 3px;
 }
+.recipe-variables button {
+  margin-top: 25px;
+}
 .public #footer {
   position: absolute;
   bottom: 0;
