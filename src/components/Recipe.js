@@ -1,7 +1,10 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { DragSource } from 'react-dnd';
+import AceEditor from 'react-ace';
+import brace from 'brace';
+import 'brace/mode/sh';
+import 'brace/theme/github';
 import recipe from '../actions/recipe.js';
 import {
   GET_RECIPE,
@@ -87,7 +90,7 @@ const mapDispatchToProps = dispatch => ({
 class Recipe extends React.Component {
   constructor(props) {
     super(props);
-    this.changeScript = ev => this.props.onChangeScript(ev.target.value);
+    this.changeScript = v => this.props.onChangeScript(v);
     this.changeName = ev => this.props.onChangeName(ev.target.value);
     this.changeVarName = (index, ev) => this.props.onChangeVarName(index, ev.target.value);
     this.changeVarValue = (index, ev) => this.props.onChangeVarValue(index, ev.target.value);
@@ -160,20 +163,6 @@ class Recipe extends React.Component {
     this.props.removeVar(index);
   }
 
-  onDrop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    if (ev.target.value.length <= 0) {
-       ev.target.value = data;
-    } else {
-      ev.target.value = ev.target.value + '\n' + data;
-    }
-  }
-
-  allowDrop(ev) {
-    ev.preventDefault();
-  }
-
   drag(script, ev) {
     ev.dataTransfer.setData("text", script);
   }
@@ -211,7 +200,7 @@ class Recipe extends React.Component {
     });
     var dropIns = this.props.recipeDropIns.map(function(dropIn, i) {
       return(
-        <button key={i} draggable="true" onDragStart={_this.drag.bind(this, dropIn.script)} className="btn btn-default">{dropIn['name']}</button>
+        <button onClick={(ev) => ev.preventDefault()} key={i} draggable="true" onDragStart={_this.drag.bind(this, dropIn.script)} className="btn btn-default">{dropIn['name']}</button>
       );
     });
     return(
@@ -267,7 +256,7 @@ class Recipe extends React.Component {
                   <br />
                   <div className={'form-group' + (this.props.recipe.errors.script.length > 0 ? ' has-error' : '')}>
                     <label htmlFor='recipe_script'>Script:</label>
-                    <textarea onDrop={this.onDrop} onDragOver={this.props.allowDrop} rows='20' className='form-control' onChange={this.changeScript} value={this.props.recipe.script || ''} name='recipe_script' id='recipe_script'/>
+                    <AceEditor mode="sh" width="100%" theme="github"  className='form-control' onChange={this.changeScript} value={this.props.recipe.script} name='recipe_script' id='recipe_script'/>
                     <Errors errors={this.props.recipe.errors.script}/>
                   </div>
                   <div className='form-group'>
