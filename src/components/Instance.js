@@ -12,7 +12,6 @@ import {
   UPDATE_FIELD_INSTANCE,
   UNLOAD_INSTANCE,
 } from '../constants/actionTypes.js';
-import Errors from './Errors.js';
 import InstanceForm from './InstanceForm.js';
 
 

@@ -65,6 +65,7 @@ class InstanceForm extends React.Component {
           <div className="col-sm-10 noinput">
             <button
               className='btn btn-warning btn-default'
+              disabled={this.props.instance.loading}
               onClick={this.props.stopInstance}>Stop Instance
             </button>
           </div>
@@ -75,6 +76,7 @@ class InstanceForm extends React.Component {
           <div className="col-sm-10 noinput">
             <button
               className='btn btn-primary btn-default'
+              disabled={this.props.instance.loading}
               onClick={this.props.startInstance}>Start Instance
             </button>
           </div>
@@ -85,6 +87,7 @@ class InstanceForm extends React.Component {
           <div className="col-sm-10 noinput">
             <button
               className='btn btn-danger btn-default'
+              disabled={this.props.instance.loading}
               onClick={this.props.terminateInstance}>Terminate Instance
             </button>
           </div>
