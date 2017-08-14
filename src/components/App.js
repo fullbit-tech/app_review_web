@@ -41,7 +41,6 @@ class App extends React.Component {
     }
   }
 
-
   render() {
     var app;
     if (this.props.user.loading) {
