@@ -1,7 +1,7 @@
 import {
   UNLOAD_INSTANCE,
   UPDATE_FIELD_INSTANCE,
-} from '../constants/actionTypes.js';
+} from '../constants/ActionTypes.js';
 
 
 const initialState = {

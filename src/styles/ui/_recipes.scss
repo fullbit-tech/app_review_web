@@ -1,0 +1,29 @@
+.page-recipes {
+  .recipe-variables {
+    button {
+      margin-top: 26px;
+    }
+  }
+  #submit_recipe {
+    float: left;
+  }
+  #delete_recipe {
+    float: right;
+    button:hover i{
+      color: $brand-danger;
+    }
+  }
+  .drop-ins {
+    .drop-in {
+      cursor: move;
+      cursor: grab;
+      cursor: -moz-grab;
+      cursor: -webkit-grab;
+    }
+    .drop-in:active {
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import {
   UNLOAD_RECIPE,
   ADD_NEW_RECIPE_VAR,
   REMOVE_RECIPE_VAR,
-} from '../constants/actionTypes.js';
+} from '../constants/ActionTypes.js';
 
 
 const initialState = {

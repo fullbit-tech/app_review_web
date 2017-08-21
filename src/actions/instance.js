@@ -1,12 +1,13 @@
 import axios from 'axios';
-import { API_ROOT } from '../constants/common.js';
+import { API_ROOT } from '../constants/Common.js';
 
 
-const getConfig  = (token) => {
+const getConfig  = (token, params={}) => {
   var config = {
       headers: {
         'Content-Type': 'application/json',
       },
+      params: params,
   };
   if (token) {
     config.headers.Authorization = 'JWT ' + token;
@@ -14,23 +15,23 @@ const getConfig  = (token) => {
   return config;
 };
 
-const getInstances = (token) => axios.get(
-    API_ROOT + '/instance', getConfig(token))
+const getInstances = (token, params={}) => axios.get(
+    API_ROOT + '/instance', getConfig(token, params))
 
-const getInstance = (owner, repo, pull, token) => axios.get(
-    API_ROOT + '/pull-request/' + owner + '/' + repo + '/' + pull,
+const getInstance = (instance, token) => axios.get(
+    API_ROOT + '/instance' + intance.id,
     getConfig(token));
 
-const startInstance = (owner, repo, pull, token, size, recipe) => axios.post(
-    API_ROOT + '/pull-request/' + owner + '/' + repo + '/' + pull,
-    {recipe_id: recipe, instance_size: size}, getConfig(token));
+const startInstance = (instance, token) => axios.post(
+    API_ROOT + '/instance/' + instance.id,
+    instance, getConfig(token));
 
-const stopInstance = (owner, repo, pull, recipe, token) => axios.delete(
-    API_ROOT + '/pull-request/' + owner + '/' + repo + '/' + pull,
+const stopInstance = (instance, token) => axios.delete(
+    API_ROOT + '/instance/' + instance.id,
     getConfig(token));
 
-const terminateInstance = (owner, repo, pull, recipe, token) => axios.delete(
-    API_ROOT + '/pull-request/' + owner + '/' + repo + '/' + pull + '?terminate=true',
+const terminateInstance = (instance, token) => axios.delete(
+    API_ROOT + '/instance/' + instance.id + '?terminate=true',
     getConfig(token));
 
 

@@ -1,6 +1,6 @@
 import {
   UPDATE_FIELD_REPOSITORY,
-} from '../constants/actionTypes.js';
+} from '../constants/ActionTypes.js';
 
 
 const initialState = {
@@ -28,7 +28,7 @@ const repository = (state=initialState, action) => {
       return { ...state, [action.key]: action.value };
 
     default:
-      return state;
+      return { ...initialState };
   }
 };
 

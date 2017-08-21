@@ -1,0 +1,8 @@
+.page-repositories {
+  .delete_link {
+    vertical-align: middle;
+  } 
+  .delete_link:hover i {
+    color: $brand-danger;
+  }
+}

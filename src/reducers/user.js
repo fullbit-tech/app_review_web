@@ -1,7 +1,7 @@
 import {
   UPDATE_FIELD_REGISTER,
   UNLOAD_USER_DATA,
-} from '../constants/actionTypes.js';
+} from '../constants/ActionTypes.js';
 
 
 const initialState = {

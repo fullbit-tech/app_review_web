@@ -2,7 +2,7 @@ import {
   UPDATE_FIELD_AUTH,
   SET_AUTH_TOKEN,
   LOGOUT,
-} from '../constants/actionTypes.js';
+} from '../constants/ActionTypes.js';
 
 
 const initialState = {
