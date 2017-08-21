@@ -22,16 +22,10 @@ class Header extends React.Component{
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
             <Link className="navbar-brand" to="/">App Review</Link>
           </div>
 
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li><Link to="/instances">Instances <span className="sr-only">(current)</span></Link></li>
               <li><Link to="/recipes">Recipes</Link></li>
@@ -42,12 +36,19 @@ class Header extends React.Component{
                   <li><Link to="/accounting">Accounting</Link></li>
                 </ul>
               </li>
+              <li className="dropdown">
+                <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support <span className="caret"></span></a>
+                <ul className="dropdown-menu">
+                  <li><Link to="/settings/repository">FAQs</Link></li>
+                  <li><Link to="/accounting">Contact</Link></li>
+                </ul>
+              </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li className="dropdown">
                 <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome, {this.props.user.user.email} <span className="caret"></span></a>
                 <ul className="dropdown-menu">
-                  <li><Link to="/user">Profile</Link></li>
+                  <li><Link to="/profile">Profile</Link></li>
                   <li><Link to="/accounting">Accounting</Link></li>
                   <li role="separator" className="divider"></li>
                   <li><a href="" onClick={this.props.logout}>Log Out</a></li>

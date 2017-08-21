@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GithubAuth from './GithubAuth.js';
 
@@ -17,7 +17,7 @@ class RequiresAuth extends React.Component {
         return <GithubAuth />
       }
     } else {
-      return null;
+      return <Redirect to=""/>
     }
   }
 }

@@ -15,8 +15,9 @@ const getConfig  = (token) => {
 };
 
 const getUser = (token) => axios.get(API_ROOT + '/user', getConfig(token));
+const deactivateUser = (token) => axios.delete(API_ROOT + '/user', getConfig(token));
 const register = (email, password) => axios.post(API_ROOT + '/user/register',
     {email: email, password: password}, getConfig());
 
 
-export default {register, getUser};
+export default {register, getUser, deactivateUser};

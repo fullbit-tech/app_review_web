@@ -20,6 +20,7 @@ import Recipe from './components/Recipe.js';
 import RequiresAuth from './components/RequiresAuth.js';
 import Public from './components/Public.js';
 import Repository from './components/settings/Repository.js';
+import Profile from './components/Profile.js';
 
 
 ReactDOM.render(
@@ -41,6 +42,7 @@ ReactDOM.render(
           <Route exact path="/recipes" component={Recipe} />
           <Route exact path="/instances" component={Instances} />
           <Route exact path="/settings/repository" component={Repository} />
+          <Route exact path="/profile" component={Profile} />
         </Dashboard>
         <DashboardFooter />
       </RequiresAuth>
