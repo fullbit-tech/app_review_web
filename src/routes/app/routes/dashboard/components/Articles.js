@@ -11,7 +11,7 @@ class Article extends React.Component {
     return(
       <div className="card card-white">
         <div className="card-image">
-          <img src="assets/images-demo/assets/600_400-1.jpg" alt="" />
+          <img src="assets/images/600_400-1.jpg" alt="" />
           <span className="card-title">Image Card with Icon Button</span>
         </div>
         <div className="card-content">

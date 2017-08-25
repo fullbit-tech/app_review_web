@@ -12,12 +12,6 @@ class InstanceCreditUsage extends React.Component {
       tooltip: {
         trigger: 'axis'
       },
-      legend: {
-        data: ['Available Credits', 'Credit Usage'],
-        textStyle: {
-          color: CHARTCONFIG.color.text
-        }
-      },
       calculable: true,
       xAxis: [
         {

@@ -38,11 +38,11 @@ class NavRightList extends React.Component {
               leftIcon={<i className="material-icons">home</i>}
                         />
             <MenuItem
-              value="/app/page/about"
-              primaryText="About"
+              value="/app/account/settings"
+              primaryText="Settings"
               innerDivStyle={listItemStyle}
               style={{fontSize: '14px', lineHeight: '48px'}}
-              leftIcon={<i className="material-icons">person_outline</i>}
+              leftIcon={<i className="material-icons">settings</i>}
                         />
             <MenuItem
               primaryText="Log Out"

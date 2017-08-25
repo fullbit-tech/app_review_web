@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import Header from 'components/Header';
 import Sidenav from 'components/Sidenav';
 import Footer from 'components/Footer';
-import Customizer from 'components/Customizer';
 import { userIsAuthenticated } from 'containers/auth.js';
 import RaisedButton from 'material-ui/RaisedButton';
 
