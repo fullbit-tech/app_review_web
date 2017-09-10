@@ -51,7 +51,15 @@ const instances = (state=initialState, action) => {
     case 'TERMINATE_INSTANCE_FULFILLED':
     case 'STOP_INSTANCE_FULFILLED':
     case 'START_INSTANCE_FULFILLED':
-      var data = normalize(action.payload.data, pullRequestSchema);
+    case 'TERMINATE_INSTANCE_REJECTED':
+    case 'START_INSTANCE_REJECTED':
+    case 'STOP_INSTANCE_REJECTED':
+      if (action.error) {
+        var payload = action.payload.response.data;
+      } else {
+        var payload = action.payload.data;
+      }
+      var data = normalize(payload, pullRequestSchema);
       var pullRequests = { ...state.pullRequests };
       var instances = { ...state.instances };
       var repositories = { ...state.repositories };
@@ -74,13 +82,6 @@ const instances = (state=initialState, action) => {
 
       return { ...state, pullRequests, instances, repositories };
 
-    case 'TERMINATE_INSTANCE_REJECTED':
-    case 'START_INSTANCE_REJECTED':
-    case 'STOP_INSTANCE_REJECTED':
-      var instance_id = action.meta.instance.id
-      var instances = { ...state.instances };
-      instances[instance_id].loading = false;
-      return { ...state, instances: instances };
 
     case UPDATE_FIELD_INSTANCE:
       var instances = { ...state.instances };

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import AceEditor from 'react-ace';
+import brace from 'brace';
+import 'brace/mode/sh';
+import 'brace/theme/github';
 import instance from 'actions/instance.js';
 import recipe from 'actions/recipe.js';
 import {
@@ -128,49 +132,59 @@ class PullRequestInfo extends Component {
           <br />
         </div>
         <div className="box-body">
-          <div className="form-group">
-            <label htmlFor="sizeField">Instance State: </label>
-            {this.props.instance.loading ? (
-              <LinearProgress />
-            ) : (
-              <div className={this.stateClass(this.props.instance.instance_state)} >{this.props.instance.instance_state}</div>
-            )}
-            <br />
-          </div>
-          {this.props.instance.instance_state === 'running' &&
-            <div className="form-group">
-              <label htmlFor="sizeField">Instance URL: </label>
-              <div><a href={'http://' + this.props.instance.instance_url} target="_blank">{this.props.instance.instance_url}</a></div>
-              <br />
+          <div className="row">
+            <div className="col-xl-6">
+              <div className="form-group">
+                <label htmlFor="sizeField">Instance State: </label>
+                {this.props.instance.loading ? (
+                  <LinearProgress />
+                ) : (
+                  <div className={this.stateClass(this.props.instance.instance_state)} >{this.props.instance.instance_state}</div>
+                )}
+                <br />
+              </div>
+              {this.props.instance.instance_state === 'running' &&
+                <div className="form-group">
+                  <label htmlFor="sizeField">Instance URL: </label>
+                  <div><a href={'http://' + this.props.instance.instance_url} target="_blank">{this.props.instance.instance_url}</a></div>
+                  <br />
+                </div>
+              }
+              <div className="form-group">
+                <label htmlFor="sizeField">Instance Size</label>
+                <InstanceSizeSelect
+                  value={this.props.instance.instance_size}
+                  onChange={this.props.changeSize}
+                  disabled={this.props.instance.instance_state === 'running' || this.props.instance.loading} />
+                <br />
+              </div>
+              <div className="form-group">
+                <label htmlFor="recipeField">Recipe</label>
+                <InstanceRecipeSelect
+                  recipes={this.props.recipes}
+                  value={this.props.instance.recipe_id}
+                  onChange={this.props.changeRecipe}
+                  disabled={this.props.instance.instance_state === 'running' || this.props.instance.loading} />
+                <br />
+              </div>
+              {this.props.instance.instance_state === 'running' &&
+                <RaisedButton className={this.powerClass(this.props.instance.instance_state)} onClick={this.props.stopInstance} label="Stop Instance" labelPosition="before" default icon={powerIcon} />
+              }
+              {this.props.instance.instance_state !== 'running' &&
+                <RaisedButton className={this.powerClass(this.props.instance.instance_state)} onClick={this.props.startInstance} label="Start Instance" labelPosition="before" default icon={powerIcon} />
+              }
+              <br /><br />
+              {this.props.instance.instance_state !== 'terminated' && this.props.instance.instance_state !== 'dormant' &&
+                <RaisedButton className="action-terminate" onClick={this.props.terminateInstance} label="Terminate Instance" labelPosition="before" default icon={terminateIcon} />
+              }
             </div>
-          }
-          <div className="form-group">
-            <label htmlFor="sizeField">Instance Size</label>
-            <InstanceSizeSelect
-              value={this.props.instance.instance_size}
-              onChange={this.props.changeSize}
-              disabled={this.props.instance.instance_state === 'running' || this.props.instance.loading} />
-            <br />
+            <div className="col-xl-6">
+              <div className="form-group">
+                <label htmlFor="instanceOutput">Instance Output</label>
+                <AceEditor readOnly={true} mode="sh" width="100%" theme="github" name="instanceOutput" className='form-control' value={this.props.instance.instance_output} />
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="recipeField">Recipe</label>
-            <InstanceRecipeSelect
-              recipes={this.props.recipes}
-              value={this.props.instance.recipe_id}
-              onChange={this.props.changeRecipe}
-              disabled={this.props.instance.instance_state === 'running' || this.props.instance.loading} />
-            <br />
-          </div>
-          {this.props.instance.instance_state === 'running' &&
-            <RaisedButton className={this.powerClass(this.props.instance.instance_state)} onClick={this.props.stopInstance} label="Stop Instance" labelPosition="before" default icon={powerIcon} />
-          }
-          {this.props.instance.instance_state !== 'running' &&
-            <RaisedButton className={this.powerClass(this.props.instance.instance_state)} onClick={this.props.startInstance} label="Start Instance" labelPosition="before" default icon={powerIcon} />
-          }
-          <br /><br />
-          {this.props.instance.instance_state !== 'terminated' && this.props.instance.instance_state !== 'dormant' &&
-            <RaisedButton className="action-terminate" onClick={this.props.terminateInstance} label="Terminate Instance" labelPosition="before" default icon={terminateIcon} />
-          }
         </div>
       </div>
     );
